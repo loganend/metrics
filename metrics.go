@@ -1,4 +1,4 @@
-package metrics
+package main
 
 import (
 	"log"
@@ -9,7 +9,8 @@ import (
 	"app/shared/database"
 	"app/shared/server"
 	"app/route"
-	"app/session"
+	"app/shared/session"
+	"encoding/json"
 )
 
 func init(){
@@ -38,4 +39,8 @@ type configuration struct {
 	Session   session.Session `json:"Session"`
 	//Template  view.Template   `json:"Template"`
 	//View      view.View       `json:"View"`
+}
+
+func (c *configuration) ParseJSON(b []byte) error {
+	return json.Unmarshal(b, &c)
 }

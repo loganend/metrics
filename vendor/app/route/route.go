@@ -4,10 +4,10 @@ import (
 	"net/http"
 
 	"app/controller"
-	"app/route/middleware/acl"
-	hr "app/route/middleware/httprouterwrapper"
-	"app/route/middleware/logrequest"
-	"app/route/middleware/pprofhandler"
+	//"app/route/acl"
+	hr "app/route/httprouterwrapper"
+	"app/route/logrequest"
+	//"app/route/pprofhandler"
 	"app/shared/session"
 
 	"github.com/gorilla/context"
