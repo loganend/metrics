@@ -50,7 +50,7 @@ func Connect(d Info) {
 	var err error
 
  	databases = d
-
+	_ = "breakpoint"
 	switch d.Type {
 	case TypeMySQL:
 		// Connect to MySQL

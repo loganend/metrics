@@ -3,12 +3,15 @@ package controller
 import (
 	"net/http"
 	"strings"
+	"fmt"
 )
 
 // Static maps static files
 func Static(w http.ResponseWriter, r *http.Request) {
 	// Disable listing directories
+
 	if strings.HasSuffix(r.URL.Path, "/") {
+		fmt.Printf("yan")
 		Error404(w, r)
 		return
 	}

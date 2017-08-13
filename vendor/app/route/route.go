@@ -8,10 +8,10 @@ import (
 	hr "app/route/httprouterwrapper"
 	"app/route/logrequest"
 	//"app/route/pprofhandler"
-	"app/shared/session"
+	//"app/shared/session"
 
 	"github.com/gorilla/context"
-	"github.com/josephspurrier/csrfbanana"
+	//"github.com/josephspurrier/csrfbanana"
 	"github.com/julienschmidt/httprouter"
 	"github.com/justinas/alice"
 )
@@ -46,15 +46,13 @@ func redirectToHTTPS(w http.ResponseWriter, req *http.Request) {
 func routes() *httprouter.Router {
 	r := httprouter.New()
 
-	// Set 404 handler
 	r.NotFound = alice.
 		New().
 		ThenFunc(controller.Error404)
 
-	// Serve static files, no directory browsing
-	r.GET("/static/*filepath", hr.Handler(alice.
-		New().
-		ThenFunc(controller.Static)))
+	r.POST("/api/users", hr.Handler(alice.New().ThenFunc(controller.Signup)))
+
+	//r.GET("/api/signup", hr.Handler(alice.New().ThenFunc(controller.Signup)))
 
 	//// Home page
 	//r.GET("/", hr.Handler(alice.
@@ -119,14 +117,14 @@ func routes() *httprouter.Router {
 
 func middleware(h http.Handler) http.Handler {
 	// Prevents CSRF and Double Submits
-	cs := csrfbanana.New(h, session.Store, session.Name)
-	cs.FailureHandler(http.HandlerFunc(controller.InvalidToken))
-	cs.ClearAfterUsage(true)
-	cs.ExcludeRegexPaths([]string{"/static(.*)"})
-	csrfbanana.TokenLength = 32
-	csrfbanana.TokenName = "token"
-	csrfbanana.SingleToken = false
-	h = cs
+	//cs := csrfbanana.New(h, session.Store, session.Name)
+	//cs.FailureHandler(http.HandlerFunc(controller.InvalidToken))
+	//cs.ClearAfterUsage(true)
+	//cs.ExcludeRegexPaths([]string{"/static(.*)"})
+	//csrfbanana.TokenLength = 32
+	//csrfbanana.TokenName = "token"
+	//csrfbanana.SingleToken = false
+	//h = cs
 
 	// Log every request
 	h = logrequest.Handler(h)
