@@ -2,16 +2,14 @@ package controller
 
 import (
 	"net/http"
-	"fmt"
-	"app/model"
-	"log"
 	"io/ioutil"
+	"app/model"
 	"encoding/json"
+	"log"
+	"time"
 )
 
-
-
-func Signup(w http.ResponseWriter, r *http.Request) {
+func NewStat(w http.ResponseWriter, r *http.Request) {
 
 	b, err := ioutil.ReadAll(r.Body)
 	defer r.Body.Close()
@@ -20,26 +18,20 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var user model.User
-	err = json.Unmarshal(b, &user)
+	var stat model.Stat
+	err = json.Unmarshal(b, &stat)
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
 	}
 
-	id := fmt.Sprint(user.ID)
-	age := fmt.Sprint(user.Age)
-	sex := user.Sex
 
-	fmt.Printf("id = %s, age = %s\n", id, age)
-
-	if (id == "0" || age == "0"  || sex == ""){
+	if (stat.UID == 0 || stat.Action == "" || stat.Datetime == time.Time{}){
 		w.WriteHeader(http.StatusPreconditionFailed)
 		return
 	}
 
-
-	ex := model.UserCreate(id, age, sex)
+	ex := model.StatCreate(stat.UID, stat.Action, stat.Datetime)
 
 	if ex != nil {
 		log.Println(ex)
