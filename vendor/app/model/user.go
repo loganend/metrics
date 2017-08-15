@@ -18,8 +18,10 @@ func (u *User) UserID() string {
 func UserCreate(id, age, sex string) error {
 	var err error
 
-	_, err = database.SQL.Exec("INSERT INTO user (id, age, sex) VALUES (?,?,?)", id, age,
+	row, err := database.SQL.Exec("INSERT INTO user (id, age, sex) VALUES (?,?,?)", id, age,
 		sex)
+
+	fmt.Println(row)
 
 	return standardizeError(err)
 }
