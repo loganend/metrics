@@ -17,12 +17,16 @@ type object struct {
 }
 
 
-
 func GetTop(w http.ResponseWriter, r *http.Request) {
 	from := r.URL.Query().Get("date1")
 	to := r.URL.Query().Get("date2")
 	action := r.URL.Query().Get("action")
 	limit := r.URL.Query().Get("limit")
+
+	if!validate(from, to, action, limit){
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
 
 	mapItems := make(map[string][]model.Row)
 
@@ -38,17 +42,45 @@ func GetTop(w http.ResponseWriter, r *http.Request) {
 		Items map[string][]model.Row `json:"items"`
 	}{mapItems}
 
-	fmt.Println("Db resp")
-	fmt.Println(mapItems)
-
 	resp, err := json.Marshal(data)
-
-	fmt.Println("Json resp")
-	fmt.Println(resp)
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 	w.Write(resp)
+}
+
+func validate(from, to, action, limit string ) bool{
+	var err error
+
+	if limit == "" {
+		fmt.Println("limit is empty")
+		return false
+	}
+	if limit == "0" {
+		fmt.Println("limit is nil")
+		return false
+	}
+
+	_, err = time.Parse("2006-01-02", from)
+	if err != nil {
+		return false
+	}
+	_, err = time.Parse("2006-01-02", to)
+	if err != nil {
+		return false
+	}
+	if from > to {
+		fmt.Println("Dates incorrect")
+		return false
+	}
+
+	switch action {
+	case "like":
+	case "comment":
+	case "login":
+	default: return false
+	}
+	return true
 }
