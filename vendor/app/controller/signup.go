@@ -9,8 +9,6 @@ import (
 	"encoding/json"
 )
 
-
-
 func Signup(w http.ResponseWriter, r *http.Request) {
 
 	b, err := ioutil.ReadAll(r.Body)
