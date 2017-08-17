@@ -3,6 +3,7 @@
     <CLASSES>
       <root url="file://$PROJECT_DIR$/../../chatroom" />
       <root url="file://$PROJECT_DIR$/../../gopkg.in" />
+      <root url="file://$USER_HOME$/go/src/github.com" />
       <root url="file://$PROJECT_DIR$/.." />
       <root url="file://$PROJECT_DIR$/../../golang.org" />
     </CLASSES>
@@ -10,6 +11,7 @@
     <SOURCES>
       <root url="file://$PROJECT_DIR$/../../chatroom" />
       <root url="file://$PROJECT_DIR$/../../gopkg.in" />
+      <root url="file://$USER_HOME$/go/src/github.com" />
       <root url="file://$PROJECT_DIR$/.." />
       <root url="file://$PROJECT_DIR$/../../golang.org" />
     </SOURCES>

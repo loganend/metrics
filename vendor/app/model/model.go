@@ -8,16 +8,9 @@ import (
 )
 
 var (
-	ErrCode = errors.New("Case statement in code is not correct.")
-
 	ErrNoResult = errors.New("Result not found.")
-
-	ErrUnavailable = errors.New("Database is unavailable.")
-
-	ErrUnauthorized = errors.New("User does not have permission to perform this operation.")
 )
 
-// standardizeErrors returns the same error regardless of the database used
 func standardizeError(err error) error {
 	if err == sql.ErrNoRows || err == mgo.ErrNotFound {
 		return ErrNoResult

@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"log"
 	"time"
+	"strconv"
 )
 
 func NewStat(w http.ResponseWriter, r *http.Request) {
@@ -14,22 +15,38 @@ func NewStat(w http.ResponseWriter, r *http.Request) {
 	b, err := ioutil.ReadAll(r.Body)
 	defer r.Body.Close()
 	if err != nil {
-		http.Error(w, err.Error(), 500)
+		w.WriteHeader(http.StatusPreconditionFailed)
 		return
 	}
 
 	var stat model.Stat
 	err = json.Unmarshal(b, &stat)
 	if err != nil {
-		http.Error(w, err.Error(), 500)
-		return
-	}
-
-
-	if (stat.UID == 0 || stat.Action == "" || stat.Datetime == time.Time{}){
 		w.WriteHeader(http.StatusPreconditionFailed)
 		return
 	}
+
+	if !validateJsonNewStat(stat.UID, stat.Action, stat.Datetime) {
+		w.WriteHeader(http.StatusPreconditionFailed)
+		return
+	}
+
+	uid := strconv.Itoa(int(stat.UID))
+	usr, err := model.UserExist(uid)
+
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	//user_id, err := strconv.Atoi(stat.UID)
+
+	if usr.ID == stat.ID{
+		log.Println("User exist")
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
 
 	ex := model.StatCreate(stat.UID, stat.Action, stat.Datetime)
 
@@ -41,4 +58,22 @@ func NewStat(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		return
 	}
+}
+
+
+func validateJsonNewStat(user uint32, action string, ts time.Time) bool{
+
+	if user <= 0 {
+		log.Println("user id less than zero")
+		return false
+	}
+
+	switch action {
+	case "like":
+	case "comment":
+	case "login":
+	default: return false
+	}
+
+	return true
 }

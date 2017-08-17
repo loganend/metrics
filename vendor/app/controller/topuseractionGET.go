@@ -23,8 +23,8 @@ func GetTop(w http.ResponseWriter, r *http.Request) {
 	action := r.URL.Query().Get("action")
 	limit := r.URL.Query().Get("limit")
 
-	if!validate(from, to, action, limit){
-		w.WriteHeader(http.StatusBadRequest)
+	if!validateJsonTop(from, to, action, limit){
+		w.WriteHeader(http.StatusPreconditionFailed)
 		return
 	}
 
@@ -53,7 +53,7 @@ func GetTop(w http.ResponseWriter, r *http.Request) {
 	w.Write(resp)
 }
 
-func validate(from, to, action, limit string ) bool{
+func validateJsonTop(from, to, action, limit string ) bool{
 	var err error
 
 	if limit == "" {

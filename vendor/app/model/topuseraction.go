@@ -16,62 +16,6 @@ type Row struct{
 }
 
 
-//<<<<<<< HEAD
-//func GetTopUsersByAction(action, from, to, num string) (map[string][]Row, error){
-//	var err error
-//
-//	//numi, err := strconv.Atoi(num)
-//	ids, err := database.SQL.Query("SELECT st.user_id FROM STAT st " +
-//		"WHERE st.action = ? AND st.datetime > ?  and st.datetime < ? " +
-//		"GROUP BY st.user_id " +
-//		"ORDER BY count(*) DESC LIMIT ?", action, from, to, num)
-//
-//	if err != nil {
-//		log.Fatal(err)
-//	}
-//
-//	defer ids.Close()
-//
-//	var listIds []uint32
-//
-//	for ids.Next() {
-//		var user_id uint32
-//
-//
-//		if err := ids.Scan(&user_id); err != nil {
-//			log.Fatal(err)
-//		}
-//		fmt.Printf("id: %d\n", user_id)
-//
-//		listIds = append(listIds, user_id)
-//	}
-//	if err := ids.Err(); err != nil {
-//		log.Fatal(err)
-//	}
-//
-//	fmt.Println(err)
-//	fmt.Println(len(listIds)-1)
-//
-//	args := []interface{}{}
-//	args = append(args, action)
-//	args = append(args, from)
-//	args = append(args, to)
-//	for _, id := range listIds{
-//		args = append(args, id)
-//	}
-//
-//	fmt.Println("args")
-//	fmt.Println(args)
-//
-//
-//	rows, err := database.SQL.Query("SELECT u.id, u.age, u.sex, count(*), DATE(st.datetime) FROM STAT st " +
-//		"JOIN USER u ON st.user_id = u.id WHERE action = ? " +
-//		"AND  st.datetime > ?  and st.datetime < ? " +
-//		"AND st.user_id in (?" + strings.Repeat(",?", len(listIds)-1) + ") " +
-//		"GROUP BY DATE(st.datetime), st.user_id " +
-//		"ORDER BY DATE(st.datetime)", args...)
-//
-//=======
 func GetTopUsersByAction(action, fromDate, toDate, limit string) (map[string][]Row, error){
 	var err error
 
