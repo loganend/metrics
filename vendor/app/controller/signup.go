@@ -16,7 +16,6 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	if err != nil {
 		w.WriteHeader(http.StatusPreconditionFailed)
-		//http.Error(w, err.Error(), 500)
 		return
 	}
 
@@ -24,7 +23,6 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	err = json.Unmarshal(b, &user)
 	if err != nil {
 		w.WriteHeader(http.StatusPreconditionFailed)
-		//http.Error(w, err.Error(), 500)
 		return
 	}
 

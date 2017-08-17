@@ -17,10 +17,11 @@ CREATE TABLE user (
     age INT(4) NOT NULL,
     sex VARCHAR(10) NOT NULL,
 
-    PRIMARY KEY (id),
-
-    INDEX (id)
+    PRIMARY KEY (id)
 );
+
+CREATE INDEX user_index
+    on user (id);
 
 
 CREATE TABLE stat (
@@ -33,7 +34,8 @@ CREATE TABLE stat (
     
     CONSTRAINT `f_note_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     
-    PRIMARY KEY (id),
-
-    INDEX (datetime, action)
+    PRIMARY KEY (id)
 );
+
+CREATE INDEX stat_index
+    on stat (datetime, action);

@@ -39,14 +39,11 @@ func NewStat(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//user_id, err := strconv.Atoi(stat.UID)
-
 	if usr.ID == stat.ID{
 		log.Println("User exist")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-
 
 	ex := model.StatCreate(stat.UID, stat.Action, stat.Datetime)
 

@@ -14,9 +14,6 @@ type Stat struct {
 
 func StatGet(user, action, datetime string) error{
 
-	//fmt.Println(datetime)
-	//date, err := time.Parse("2006-01-02 15:04:05", datetime)
-
 	result := Stat{}
 	err := database.SQL.Get(&result, "select distinct * from stat where user_id = ? and action = ? and datetime = ?", user, action, datetime);
 
@@ -29,7 +26,7 @@ func StatCreate(user uint32, action string, datetime time.Time) error{
 	_, err = database.SQL.Exec("INSERT INTO stat (user_id, action, datetime) VALUES (?,?,?)", user, action,
 		datetime)
 
-	return standardizeError(err)
+	return err
 }
 
 func StatRemove(user uint32, action string, datetime string) error{
@@ -38,5 +35,5 @@ func StatRemove(user uint32, action string, datetime string) error{
 	_, err = database.SQL.Exec("DELETE FROM stat WHERE user_id = ? and action = ? and datetime = ?", user, action,
 		datetime)
 
-	return standardizeError(err)
+	return err
 }

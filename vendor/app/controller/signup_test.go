@@ -9,8 +9,6 @@ import (
 	"app/shared/jsonconfig"
 	"app/shared/server"
 	"encoding/json"
-	//"github.com/DATA-DOG/go-sqlmock"
-	//"github.com/jmoiron/sqlx"
 	"app/model"
 )
 
@@ -27,9 +25,10 @@ func (c *configuration) ParseJSON(b []byte) error {
 }
 
 
-func TestSignupFirst(t *testing.T) {
+func TestSignupErrorUserExist(t *testing.T) {
 
-	jsonconfig.Load("/Users/serqeycheremisin/work/src/github.com/metrics/config/"+"config.json", config)
+
+	jsonconfig.Load("../../../config/config.json", config)
 	database.Connect(config.TestDatabase)
 
 	var jsonStr = []byte(`{"id":"2", "age":"12", "sex":"male"}`)
@@ -58,243 +57,7 @@ func TestSignupFirst(t *testing.T) {
 	}
 }
 
-
-func TestSignupSecond(t *testing.T){
-
-	var jsonStr = []byte(`{"id":"1", "age":"-20", "sex":"male"}`)
-	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))
-	req.Header.Set("Content-Type", "application/json")
-
-	if err != nil{
-		t.Errorf("expected no error got %v", err)
-	}
-
-	rr := httptest.NewRecorder()
-
-	handler := http.HandlerFunc(Signup)
-
-	handler.ServeHTTP(rr, req)
-
-	if status := rr.Code; status != http.StatusPreconditionFailed {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusPreconditionFailed)
-	}
-}
-
-func TestSignupThird(t *testing.T){
-
-	var jsonStr = []byte(`{"id":"1", "age":"20", "sex":"mae"}`)
-	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))
-	req.Header.Set("Content-Type", "application/json")
-
-	if err != nil{
-		t.Errorf("expected no error got %v", err)
-	}
-
-	rr := httptest.NewRecorder()
-
-	handler := http.HandlerFunc(Signup)
-
-	handler.ServeHTTP(rr, req)
-
-	if status := rr.Code; status != http.StatusPreconditionFailed {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusPreconditionFailed)
-	}
-}
-
-func TestSignupFourth(t *testing.T){
-
-	var jsonStr = []byte(`{"id":"-1", "age":"20", "sex":""}`)
-	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))
-	req.Header.Set("Content-Type", "application/json")
-
-	if err != nil{
-		t.Errorf("expected no error got %v", err)
-	}
-
-	rr := httptest.NewRecorder()
-
-	handler := http.HandlerFunc(Signup)
-
-	handler.ServeHTTP(rr, req)
-
-	if status := rr.Code; status != http.StatusPreconditionFailed {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusPreconditionFailed)
-	}
-}
-
-
-func TestSignupFifth(t *testing.T){
-
-	var jsonStr = []byte(`{"id":"1", "sex":"female"}`)
-	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))
-	req.Header.Set("Content-Type", "application/json")
-
-	if err != nil{
-		t.Errorf("expected no error got %v", err)
-	}
-
-	rr := httptest.NewRecorder()
-
-	handler := http.HandlerFunc(Signup)
-
-	handler.ServeHTTP(rr, req)
-
-	if status := rr.Code; status != http.StatusPreconditionFailed {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusPreconditionFailed)
-	}
-}
-
-func TestSignupSixth(t *testing.T){
-
-	var jsonStr = []byte(`{}`)
-	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))
-	req.Header.Set("Content-Type", "application/json")
-
-	if err != nil{
-		t.Errorf("expected no error got %v", err)
-	}
-
-	rr := httptest.NewRecorder()
-
-	handler := http.HandlerFunc(Signup)
-
-	handler.ServeHTTP(rr, req)
-
-	if status := rr.Code; status != http.StatusPreconditionFailed {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusPreconditionFailed)
-	}
-}
-
-
-func TestSignupSeventh(t *testing.T){
-
-	var jsonStr = []byte(`{"age":"10; "sex"="male"}`)
-	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))
-	req.Header.Set("Content-Type", "application/json")
-
-	if err != nil{
-		t.Errorf("expected no error got %v", err)
-	}
-
-	rr := httptest.NewRecorder()
-
-	handler := http.HandlerFunc(Signup)
-
-	handler.ServeHTTP(rr, req)
-
-	if status := rr.Code; status != http.StatusPreconditionFailed {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusPreconditionFailed)
-	}
-}
-
-func TestSignupEighth(t *testing.T){
-
-	var jsonStr = []byte(`{"age":"10; "sex"="male"}`)
-	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))
-	req.Header.Set("Content-Type", "application/json")
-
-	if err != nil{
-		t.Errorf("expected no error got %v", err)
-	}
-
-	rr := httptest.NewRecorder()
-
-	handler := http.HandlerFunc(Signup)
-
-	handler.ServeHTTP(rr, req)
-
-	if status := rr.Code; status != http.StatusPreconditionFailed {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusPreconditionFailed)
-	}
-}
-
-
-func TestSignupNinth(t *testing.T){
-
-	var jsonStr = []byte(`{"id":"12", "age":"", "sex":""}`)
-	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))
-	req.Header.Set("Content-Type", "application/json")
-
-	if err != nil{
-		t.Errorf("expected no error got %v", err)
-	}
-
-	rr := httptest.NewRecorder()
-
-	handler := http.HandlerFunc(Signup)
-
-	handler.ServeHTTP(rr, req)
-
-	if status := rr.Code; status != http.StatusPreconditionFailed {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusPreconditionFailed)
-	}
-}
-
-func TestSignupTenth(t *testing.T) {
-
-	var jsonStr = []byte(`{"id":"-2", "age":"20", "sex":"male"}`)
-	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))
-	req.Header.Set("Content-Type", "application/json")
-
-	if err != nil{
-		t.Errorf("expected no error got %v", err)
-	}
-
-	rr := httptest.NewRecorder()
-
-	handler := http.HandlerFunc(Signup)
-
-	handler.ServeHTTP(rr, req)
-
-	if status := rr.Code; status != http.StatusPreconditionFailed {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusPreconditionFailed)
-	}
-
-	expected := ""
-	if rr.Body.String() != expected {
-		t.Errorf("handler returned unexpected body: got %v want %v",
-			rr.Body.String(), expected)
-	}
-}
-
-func TestSignupEleventh(t *testing.T) {
-
-	var jsonStr = []byte(`{"id":"-2", "age":"20", "sex":"male"}`)
-	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))
-	req.Header.Set("Content-Type", "application/json")
-
-	if err != nil{
-		t.Errorf("expected no error got %v", err)
-	}
-
-	rr := httptest.NewRecorder()
-
-	handler := http.HandlerFunc(Signup)
-
-	handler.ServeHTTP(rr, req)
-
-	if status := rr.Code; status != http.StatusPreconditionFailed {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusPreconditionFailed)
-	}
-
-	expected := ""
-	if rr.Body.String() != expected {
-		t.Errorf("handler returned unexpected body: got %v want %v",
-			rr.Body.String(), expected)
-	}
-}
-
-func TestSignupTwelfth(t *testing.T) {
+func TestSignupStatusOkId100000(t *testing.T) {
 
 	var jsonStr = []byte(`{"id":"100000", "age":"21", "sex":"male"}`)
 	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))
@@ -344,4 +107,212 @@ func TestSignupTwelfth(t *testing.T) {
 		t.Error("User have to be removed")
 	}
 
+}
+
+
+func TestSignupErrorAgeLessZero(t *testing.T){
+
+	var jsonStr = []byte(`{"id":"1", "age":"-20", "sex":"male"}`)
+	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))
+	req.Header.Set("Content-Type", "application/json")
+
+	if err != nil{
+		t.Errorf("expected no error got %v", err)
+	}
+
+	rr := httptest.NewRecorder()
+
+	handler := http.HandlerFunc(Signup)
+
+	handler.ServeHTTP(rr, req)
+
+	if status := rr.Code; status != http.StatusPreconditionFailed {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusPreconditionFailed)
+	}
+}
+
+func TestSignupErrorInvalidSex(t *testing.T){
+
+	var jsonStr = []byte(`{"id":"1", "age":"20", "sex":"mae"}`)
+	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))
+	req.Header.Set("Content-Type", "application/json")
+
+	if err != nil{
+		t.Errorf("expected no error got %v", err)
+	}
+
+	rr := httptest.NewRecorder()
+
+	handler := http.HandlerFunc(Signup)
+
+	handler.ServeHTTP(rr, req)
+
+	if status := rr.Code; status != http.StatusPreconditionFailed {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusPreconditionFailed)
+	}
+}
+
+func TestSignupErrorSexEmpty(t *testing.T){
+
+	var jsonStr = []byte(`{"id":"-1", "age":"20", "sex":""}`)
+	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))
+	req.Header.Set("Content-Type", "application/json")
+
+	if err != nil{
+		t.Errorf("expected no error got %v", err)
+	}
+
+	rr := httptest.NewRecorder()
+
+	handler := http.HandlerFunc(Signup)
+
+	handler.ServeHTTP(rr, req)
+
+	if status := rr.Code; status != http.StatusPreconditionFailed {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusPreconditionFailed)
+	}
+}
+
+
+func TestSignupErrorAgeEmpty(t *testing.T){
+
+	var jsonStr = []byte(`{"id":"1", "sex":"female"}`)
+	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))
+	req.Header.Set("Content-Type", "application/json")
+
+	if err != nil{
+		t.Errorf("expected no error got %v", err)
+	}
+
+	rr := httptest.NewRecorder()
+
+	handler := http.HandlerFunc(Signup)
+
+	handler.ServeHTTP(rr, req)
+
+	if status := rr.Code; status != http.StatusPreconditionFailed {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusPreconditionFailed)
+	}
+}
+
+func TestSignupErrorInvalidJson(t *testing.T){
+
+	var jsonStr = []byte(`{}`)
+	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))
+	req.Header.Set("Content-Type", "application/json")
+
+	if err != nil{
+		t.Errorf("expected no error got %v", err)
+	}
+
+	rr := httptest.NewRecorder()
+
+	handler := http.HandlerFunc(Signup)
+
+	handler.ServeHTTP(rr, req)
+
+	if status := rr.Code; status != http.StatusPreconditionFailed {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusPreconditionFailed)
+	}
+}
+
+
+func TestSignupErrorSexEmptyTwo(t *testing.T){
+
+	var jsonStr = []byte(`{"age":"10; "sex"="male"}`)
+	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))
+	req.Header.Set("Content-Type", "application/json")
+
+	if err != nil{
+		t.Errorf("expected no error got %v", err)
+	}
+
+	rr := httptest.NewRecorder()
+
+	handler := http.HandlerFunc(Signup)
+
+	handler.ServeHTTP(rr, req)
+
+	if status := rr.Code; status != http.StatusPreconditionFailed {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusPreconditionFailed)
+	}
+}
+
+func TestSignupErrorIdEmpty(t *testing.T){
+
+	var jsonStr = []byte(`{"age":"10; "sex"="male"}`)
+	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))
+	req.Header.Set("Content-Type", "application/json")
+
+	if err != nil{
+		t.Errorf("expected no error got %v", err)
+	}
+
+	rr := httptest.NewRecorder()
+
+	handler := http.HandlerFunc(Signup)
+
+	handler.ServeHTTP(rr, req)
+
+	if status := rr.Code; status != http.StatusPreconditionFailed {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusPreconditionFailed)
+	}
+}
+
+
+func TestSignupErrorEmptyData(t *testing.T){
+
+	var jsonStr = []byte(`{"id":"12", "age":"", "sex":""}`)
+	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))
+	req.Header.Set("Content-Type", "application/json")
+
+	if err != nil{
+		t.Errorf("expected no error got %v", err)
+	}
+
+	rr := httptest.NewRecorder()
+
+	handler := http.HandlerFunc(Signup)
+
+	handler.ServeHTTP(rr, req)
+
+	if status := rr.Code; status != http.StatusPreconditionFailed {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusPreconditionFailed)
+	}
+}
+
+func TestSignupErrorIdLessZero(t *testing.T) {
+
+	var jsonStr = []byte(`{"id":"-2", "age":"20", "sex":"male"}`)
+	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))
+	req.Header.Set("Content-Type", "application/json")
+
+	if err != nil{
+		t.Errorf("expected no error got %v", err)
+	}
+
+	rr := httptest.NewRecorder()
+
+	handler := http.HandlerFunc(Signup)
+
+	handler.ServeHTTP(rr, req)
+
+	if status := rr.Code; status != http.StatusPreconditionFailed {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusPreconditionFailed)
+	}
+
+	expected := ""
+	if rr.Body.String() != expected {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			rr.Body.String(), expected)
+	}
 }

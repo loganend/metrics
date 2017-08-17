@@ -9,7 +9,6 @@ import (
 
 var (
 	SQL *sqlx.DB
-
 	databases Info
 )
 
@@ -34,7 +33,6 @@ type MySQLInfo struct {
 }
 
 func DSN(ci MySQLInfo) string {
-	// Example: root:@tcp(localhost:3306)/test
 	return ci.Username +
 		":" +
 		ci.Password +
