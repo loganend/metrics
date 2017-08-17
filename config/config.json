@@ -11,6 +11,18 @@
 		}
 	},
 
+	"TestDatabase": {
+		"Type": "MySQL",
+		"MySQL": {
+			"Username": "root",
+			"Password": "",
+			"Name": "testmetrics",
+			"Hostname": "127.0.0.1",
+			"Port": 3306,
+			"Parameter": "?parseTime=true"
+		}
+	},
+
 	"Server": {
 		"Hostname": "",
 		"UseHTTP": true,

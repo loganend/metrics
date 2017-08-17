@@ -19,6 +19,7 @@ var config = &configuration{}
 type configuration struct {
 	Database  database.Info   `json:"Database"`
 	Server    server.Server   `json:"Server"`
+	TestDatabase  database.Info `json:"TestDatabase"`
 }
 
 func (c *configuration) ParseJSON(b []byte) error {
@@ -29,7 +30,7 @@ func (c *configuration) ParseJSON(b []byte) error {
 func TestSignupFirst(t *testing.T) {
 
 	jsonconfig.Load("/Users/serqeycheremisin/work/src/github.com/metrics/config/"+"config.json", config)
-	database.Connect(config.Database)
+	database.Connect(config.TestDatabase)
 
 	var jsonStr = []byte(`{"id":"2", "age":"12", "sex":"male"}`)
 	req, err := http.NewRequest("POST", "/api/users",  bytes.NewBuffer(jsonStr))

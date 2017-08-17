@@ -2,19 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2afc685c-f94a-4b4b-8f80-c7711c80ca5b" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/app/model/user_test.go" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/GOPATH__metrics_.xml" afterPath="$PROJECT_DIR$/.idea/libraries/GOPATH__metrics_.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/config.json" afterPath="$PROJECT_DIR$/config/config.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/app/controller/newstat.go" afterPath="$PROJECT_DIR$/vendor/app/controller/newstat.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/app/controller/signup.go" afterPath="$PROJECT_DIR$/vendor/app/controller/signup.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/app/controller/newstat_test.go" afterPath="$PROJECT_DIR$/vendor/app/controller/newstat_test.go" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/app/controller/signup_test.go" afterPath="$PROJECT_DIR$/vendor/app/controller/signup_test.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/app/controller/topuseractionGET.go" afterPath="$PROJECT_DIR$/vendor/app/controller/topuseractionGET.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/app/model/model.go" afterPath="$PROJECT_DIR$/vendor/app/model/model.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/app/model/stat.go" afterPath="$PROJECT_DIR$/vendor/app/model/stat.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/app/model/topuseraction.go" afterPath="$PROJECT_DIR$/vendor/app/model/topuseraction.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/app/model/user.go" afterPath="$PROJECT_DIR$/vendor/app/model/user.go" />
     </list>
     <ignored path="metrics.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,21 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="model.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/app/model/model.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="signup_test.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vendor/app/controller/signup_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="507">
-              <caret line="338" column="16" selection-start-line="338" selection-start-column="16" selection-end-line="338" selection-end-column="35" />
+            <state relative-caret-position="75">
+              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="57" selection-end-column="9" />
               <folding>
                 <element signature="e#20#247#0" expanded="true" />
               </folding>
@@ -60,87 +40,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="route.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/app/route/route.go">
+      <file leaf-file-name="topuseractionGET_test.go" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/vendor/app/controller/topuseractionGET_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="26" column="32" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="stat.go" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/vendor/app/model/stat.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="topuseraction.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/app/model/topuseraction.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="21" column="8" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="55" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="newstat.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/app/controller/newstat.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="12" column="54" selection-start-line="12" selection-start-column="54" selection-end-line="12" selection-end-column="54" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/app/model/user.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="53" column="24" selection-start-line="53" selection-start-column="24" selection-end-line="53" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="newstat_test.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/app/controller/newstat_test.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="80" column="59" selection-start-line="80" selection-start-column="59" selection-end-line="80" selection-end-column="59" />
+            <state relative-caret-position="162">
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="60" />
               <folding>
-                <element signature="e#20#144#0" expanded="true" />
+                <element signature="e#20#133#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="signup.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/app/controller/signup.go">
+      <file leaf-file-name="topuseractionGET.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/app/controller/topuseractionGET.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
+            <state relative-caret-position="297">
+              <caret line="26" column="59" selection-start-line="26" selection-start-column="35" selection-end-line="26" selection-end-column="59" />
               <folding>
-                <element signature="e#20#110#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/config.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
-              <folding>
-                <marker date="1502948695000" expanded="true" signature="0:378" ph="{...}" />
+                <element signature="e#20#94#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -194,12 +112,13 @@
         <option value="$PROJECT_DIR$/vendor/app/shared/tesedatabase/database_test.go" />
         <option value="$PROJECT_DIR$/vendor/app/shared/testdatabase/database_test.go" />
         <option value="$PROJECT_DIR$/vendor/app/controller/signup.go" />
-        <option value="$PROJECT_DIR$/vendor/app/controller/signup_test.go" />
         <option value="$PROJECT_DIR$/vendor/app/model/user.go" />
-        <option value="$PROJECT_DIR$/config/config.json" />
         <option value="$PROJECT_DIR$/vendor/app/controller/newstat.go" />
-        <option value="$PROJECT_DIR$/vendor/app/controller/newstat_test.go" />
         <option value="$PROJECT_DIR$/vendor/app/model/stat.go" />
+        <option value="$PROJECT_DIR$/config/config.json" />
+        <option value="$PROJECT_DIR$/vendor/app/controller/signup_test.go" />
+        <option value="$PROJECT_DIR$/vendor/app/controller/newstat_test.go" />
+        <option value="$PROJECT_DIR$/vendor/app/controller/topuseractionGET_test.go" />
       </list>
     </option>
   </component>
@@ -969,7 +888,7 @@
       <workItem from="1502486804755" duration="55647000" />
       <workItem from="1502821572702" duration="1496000" />
       <workItem from="1502900152692" duration="13875000" />
-      <workItem from="1502940831247" duration="10090000" />
+      <workItem from="1502940831247" duration="11838000" />
     </task>
     <servers />
   </component>
@@ -1006,7 +925,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81167000" />
+    <option name="totallyTimeSpent" value="82915000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="822" extended-state="6" />
@@ -1088,16 +1007,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/metrics.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="17" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
-          <folding>
-            <element signature="e#14#148#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/app/route/route.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
@@ -1339,21 +1248,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/mysql.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/app/shared/database/database.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-210">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/go/src/os/path_unix.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -1375,16 +1269,6 @@
         <state relative-caret-position="375">
           <caret line="32" column="20" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/app/controller/topuseractionGET.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="26" column="59" selection-start-line="26" selection-start-column="35" selection-end-line="26" selection-end-column="59" />
-          <folding>
-            <element signature="e#20#94#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1414,16 +1298,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/config.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
-          <folding>
-            <marker date="1502948695000" expanded="true" signature="0:378" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/app/controller/signup.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -1431,14 +1305,6 @@
           <folding>
             <element signature="e#20#110#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/app/controller/newstat.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="12" column="54" selection-start-line="12" selection-start-column="54" selection-end-line="12" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1450,10 +1316,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/app/route/route.go">
+    <entry file="file://$PROJECT_DIR$/vendor/app/controller/newstat.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="26" column="32" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="32" />
+        <state relative-caret-position="60">
+          <caret line="12" column="54" selection-start-line="12" selection-start-column="54" selection-end-line="12" selection-end-column="54" />
           <folding />
         </state>
       </provider>
@@ -1466,31 +1332,83 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/app/controller/signup_test.go">
+    <entry file="file://$PROJECT_DIR$/vendor/app/model/stat.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="507">
-          <caret line="338" column="16" selection-start-line="338" selection-start-column="16" selection-end-line="338" selection-end-column="35" />
-          <folding>
-            <element signature="e#20#247#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="60">
+          <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/app/route/route.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="26" column="32" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/mysql.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/app/shared/database/database.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vendor/app/controller/newstat_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
-          <caret line="80" column="59" selection-start-line="80" selection-start-column="59" selection-end-line="80" selection-end-column="59" />
+          <caret line="15" column="44" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="44" />
           <folding>
             <element signature="e#20#144#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/app/model/stat.go">
+    <entry file="file://$PROJECT_DIR$/vendor/app/controller/topuseractionGET.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-          <folding />
+        <state relative-caret-position="297">
+          <caret line="26" column="59" selection-start-line="26" selection-start-column="35" selection-end-line="26" selection-end-column="59" />
+          <folding>
+            <element signature="e#20#94#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/app/controller/signup_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="57" selection-end-column="9" />
+          <folding>
+            <element signature="e#20#247#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/app/controller/topuseractionGET_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="60" />
+          <folding>
+            <element signature="e#20#133#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

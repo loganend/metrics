@@ -13,7 +13,7 @@ import (
 func TestNewStatFirst(t *testing.T) {
 
 	jsonconfig.Load("/Users/serqeycheremisin/work/src/github.com/metrics/config/"+"config.json", config)
-	database.Connect(config.Database)
+	database.Connect(config.TestDatabase)
 
 	var jsonStr = []byte(`{}`)
 	req, err := http.NewRequest("POST", "/api/users/stats",  bytes.NewBuffer(jsonStr))
