@@ -8,55 +8,61 @@ import (
 	"log"
 	"time"
 	"strconv"
+	"fmt"
+	"app/shared/workers"
 )
 
-func NewStat(w http.ResponseWriter, r *http.Request) {
+func NewStat(w http.ResponseWriter, r *http.Request){
+	_, err := workers.WP.AddTaskSyncTimed(func() interface{}{
+		b, err := ioutil.ReadAll(r.Body)
+		defer r.Body.Close()
+		if err != nil {
+			w.WriteHeader(http.StatusPreconditionFailed)
+			return err
+		}
 
-	b, err := ioutil.ReadAll(r.Body)
-	defer r.Body.Close()
+		var stat model.Stat
+		err = json.Unmarshal(b, &stat)
+		if err != nil {
+			w.WriteHeader(http.StatusPreconditionFailed)
+			return err
+		}
+
+		if !validateJsonNewStat(stat.UID, stat.Action, stat.Datetime) {
+			w.WriteHeader(http.StatusPreconditionFailed)
+			return err
+		}
+
+		uid := strconv.Itoa(int(stat.UID))
+		usr, err := model.UserExist(uid)
+
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			return err
+		}
+
+		if usr.ID == stat.ID{
+			log.Println("User exist")
+			w.WriteHeader(http.StatusBadRequest)
+			return err
+		}
+
+		ex := model.StatCreate(stat.UID, stat.Action, stat.Datetime)
+
+		if ex != nil {
+			log.Println(ex)
+			w.WriteHeader(http.StatusBadRequest)
+			return err
+		} else {
+			w.WriteHeader(http.StatusOK)
+			return err
+		}
+	}, workers.RequestWaitInQueueTimeout)
+
 	if err != nil {
-		w.WriteHeader(http.StatusPreconditionFailed)
-		return
-	}
-
-	var stat model.Stat
-	err = json.Unmarshal(b, &stat)
-	if err != nil {
-		w.WriteHeader(http.StatusPreconditionFailed)
-		return
-	}
-
-	if !validateJsonNewStat(stat.UID, stat.Action, stat.Datetime) {
-		w.WriteHeader(http.StatusPreconditionFailed)
-		return
-	}
-
-	uid := strconv.Itoa(int(stat.UID))
-	usr, err := model.UserExist(uid)
-
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-
-	if usr.ID == stat.ID{
-		log.Println("User exist")
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-
-	ex := model.StatCreate(stat.UID, stat.Action, stat.Datetime)
-
-	if ex != nil {
-		log.Println(ex)
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	} else {
-		w.WriteHeader(http.StatusOK)
-		return
+		http.Error(w, fmt.Sprintf("error: %s!\n", err), 500)
 	}
 }
-
 
 func validateJsonNewStat(user uint32, action string, ts time.Time) bool{
 

@@ -30,6 +30,7 @@
 		"HTTPPort": 8000,
 		"HTTPSPort": 443,
 		"CertFile": "tls/server.crt",
-		"KeyFile": "tls/server.key"
+		"KeyFile": "tls/server.key",
+		"Pool": 2
 	}
 }

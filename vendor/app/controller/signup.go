@@ -8,59 +8,66 @@ import (
 	"io/ioutil"
 	"encoding/json"
 	"strconv"
+	"app/shared/workers"
 )
 
-func Signup(w http.ResponseWriter, r *http.Request) {
+func Signup(w http.ResponseWriter, r *http.Request){
+	_, err := workers.WP.AddTaskSyncTimed(func() interface{}{
+		b, err := ioutil.ReadAll(r.Body)
+		defer r.Body.Close()
+		if err != nil {
+			w.WriteHeader(http.StatusPreconditionFailed)
+			return err
+		}
 
-	b, err := ioutil.ReadAll(r.Body)
-	defer r.Body.Close()
+		var user model.User
+		err = json.Unmarshal(b, &user)
+		if err != nil {
+			w.WriteHeader(http.StatusPreconditionFailed)
+			return err
+		}
+
+		id := fmt.Sprint(user.ID)
+		age := fmt.Sprint(user.Age)
+		sex := user.Sex
+
+		if !validateJsonSignup(id, age, sex){
+			w.WriteHeader(http.StatusPreconditionFailed)
+			return err
+		}
+
+		usr, err := model.UserExist(id)
+
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			return err
+		}
+
+		user_id, err := strconv.Atoi(id)
+
+		if int(usr.ID) == user_id{
+			log.Println("User exist")
+			w.WriteHeader(http.StatusBadRequest)
+			return err
+		}
+
+		ex := model.UserCreate(id, age, sex)
+
+		if ex != nil {
+			log.Println(ex)
+			w.WriteHeader(http.StatusBadRequest)
+			return err
+		} else {
+			w.WriteHeader(http.StatusOK)
+			return err
+		}
+	}, workers.RequestWaitInQueueTimeout)
+
 	if err != nil {
-		w.WriteHeader(http.StatusPreconditionFailed)
-		return
-	}
-
-	var user model.User
-	err = json.Unmarshal(b, &user)
-	if err != nil {
-		w.WriteHeader(http.StatusPreconditionFailed)
-		return
-	}
-
-	id := fmt.Sprint(user.ID)
-	age := fmt.Sprint(user.Age)
-	sex := user.Sex
-
-	if !validateJsonSignup(id, age, sex){
-		w.WriteHeader(http.StatusPreconditionFailed)
-		return
-	}
-
-	usr, err := model.UserExist(id)
-
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-
-	user_id, err := strconv.Atoi(id)
-
-	if int(usr.ID) == user_id{
-		log.Println("User exist")
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-
-	ex := model.UserCreate(id, age, sex)
-
-	if ex != nil {
-		log.Println(ex)
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	} else {
-		w.WriteHeader(http.StatusOK)
-		return
+		http.Error(w, fmt.Sprintf("error: %s!\n", err), 500)
 	}
 }
+
 
 func validateJsonSignup(id, age, sex string) bool{
 	var err error

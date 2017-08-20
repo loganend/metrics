@@ -8,12 +8,14 @@ import (
 	"app/shared/jsonconfig"
 	"app/shared/database"
 	"app/model"
+	"app/shared/workers"
 )
 
 func TestNewStatErrorInvalidJson(t *testing.T) {
 
 	jsonconfig.Load("../../../config/config.json", config)
 	database.Connect(config.TestDatabase)
+	workers.InitPool(config.Server.Pool)
 
 
 	var jsonStr = []byte(`{}`)

@@ -7,6 +7,7 @@ import (
 	"log"
 	"fmt"
 	"encoding/json"
+	"app/shared/workers"
 )
 
 type object struct {
@@ -16,41 +17,47 @@ type object struct {
 	limit uint32   `json:"limit,string,omitepty"`
 }
 
+func GetTop(w http.ResponseWriter, r *http.Request){
+	_, err := workers.WP.AddTaskSyncTimed(func() interface{}{
+		from := r.URL.Query().Get("date1")
+		to := r.URL.Query().Get("date2")
+		action := r.URL.Query().Get("action")
+		limit := r.URL.Query().Get("limit")
 
-func GetTop(w http.ResponseWriter, r *http.Request) {
-	from := r.URL.Query().Get("date1")
-	to := r.URL.Query().Get("date2")
-	action := r.URL.Query().Get("action")
-	limit := r.URL.Query().Get("limit")
+		if!validateJsonTop(from, to, action, limit){
+			w.WriteHeader(http.StatusPreconditionFailed)
+			return new(error)
+		}
 
-	if!validateJsonTop(from, to, action, limit){
-		w.WriteHeader(http.StatusPreconditionFailed)
-		return
-	}
+		mapItems := make(map[string][]model.Row)
 
-	mapItems := make(map[string][]model.Row)
+		mapItems, err := model.GetTopUsersByAction(action, from, to, limit)
 
-	mapItems, ex := model.GetTopUsersByAction(action, from, to, limit)
+		if err != nil {
+			log.Println(err)
+			w.WriteHeader(http.StatusBadRequest)
+			return err
+		}
 
-	if ex != nil {
-		log.Println(ex)
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-
-	data := struct {
-		Items map[string][]model.Row `json:"items"`
-	}{mapItems}
+		data := struct {
+			Items map[string][]model.Row `json:"items"`
+		}{mapItems}
 
 
-	resp, err := json.Marshal(data)
+		resp, err := json.Marshal(data)
 
+
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			return err
+		}
+		w.Write(resp)
+		return err
+	}, workers.RequestWaitInQueueTimeout)
 
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		return
+		http.Error(w, fmt.Sprintf("error: %s!\n", err), 500)
 	}
-	w.Write(resp)
 }
 
 func validateJsonTop(from, to, action, limit string ) bool{
