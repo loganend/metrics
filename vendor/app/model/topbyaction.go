@@ -4,7 +4,7 @@ import (
 	"time"
 	"app/shared/database"
 	"log"
-	"strings"
+	"strconv"
 )
 
 
@@ -19,102 +19,195 @@ type Row struct{
 func GetTopUsersByAction(action, fromDate, toDate, limit string) (map[string][]Row, error){
 	var err error
 
-	from, err := time.Parse("2006-01-02", fromDate)
-	to, err := time.Parse("2006-01-02", toDate)
 	mapItems := make(map[string][]Row)
-	setIds := make(map[uint32]uint32)
-	var sliceIds []uint32
-	var dates []string
-	var udates []string
+	lim, err := strconv.Atoi(limit)
 
-
-	for !from.Equal(to) {
-		dates = append(dates, from.Format("2006.01.02"))
-		from = from.AddDate(0, 0, 1)
-	}
-	dates = append(dates, to.Format("2006.01.02"))
-
-
-	for i := 0; i < len(dates); i++ {
-		rows, err := database.SQL.Query("Select user_id, count(*) as count from stat " +
-			"WHERE action = ? AND DATE(datetime) = ? " +
-			"GROUP BY user_id " +
-			"ORDER BY count(*) desc " +
-			"LIMIT ?", action, dates[i], limit)
-
-		if err != nil {
-			log.Fatal(err)
-		}
-		defer rows.Close()
-
-		flag:=true
-		for rows.Next() {
-			if(flag) {
-				udates = append(udates, dates[i])
-				flag = false
-			}
-
-			var user_id uint32
-			var count uint32
-
-			if err := rows.Scan(&user_id, &count); err != nil {
-				log.Fatal(err)
-			}
-
-			mapItems[dates[i]] = append(mapItems[dates[i]], Row{user_id, 0, "", count})
-			setIds[user_id] = user_id
-		}
-		if err := rows.Err(); err != nil {
-			log.Fatal(err)
-		}
-	}
-
-	if(len(setIds) == 0){
-		return mapItems, err
-	}
-
-	for k := range setIds {
-			sliceIds = append(sliceIds, k)
-	}
-
-	args := []interface{}{}
-	for _, id := range sliceIds{
-		args = append(args, id)
-	}
-
-	users, err := database.SQL.Query("SELECT id, age, sex FROM USER " +
-		"WHERE id in (?" + strings.Repeat(",?", len(sliceIds)-1) + ") ", args...)
+	hell, err := database.SQL.Query("SELECT u.id, u.age, u.sex, count(*) as count, DATE(st.datetime) as date " +
+		"FROM STAT st JOIN USER u ON st.user_id = u.id  " +
+		"WHERE st.action = ? AND  st.datetime >= ?  and st.datetime <= ?  " +
+		"GROUP BY DATE(st.datetime), st.user_id " +
+		"ORDER BY DATE(st.datetime), count(*) desc", action, fromDate , toDate)
 
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer hell.Close()
 
-	defer users.Close()
 
-	mapUsers := make(map[uint32]Row)
-
-	for users.Next() {
-		var id uint32
-		var age uint16
+	for hell.Next() {
+		var user_id uint32
+		var count uint32
+		var date time.Time
 		var sex string
+		var age uint16
 
-
-		if err := users.Scan(&id, &age, &sex); err != nil {
+		if err := hell.Scan(&user_id, &age, &sex, &count, &date); err != nil {
 			log.Fatal(err)
 		}
 
-		mapUsers[id] = Row{id, age, sex, 0}
+		mapItems[date.Format("2006.01.02")] = append(mapItems[date.Format("2006.01.02")], Row{user_id, age, sex, count})
+	}
+	if err := hell.Err(); err != nil {
+		log.Fatal(err)
 	}
 
-	for i := 0; i < len(udates); i++{
-		rows:= mapItems[udates[i]]
-		for j:=0; j <len(rows);j++{
-			rows[j].Age = mapUsers[rows[j].ID].Age
-			rows[j].Sex = mapUsers[rows[j].ID].Sex
+
+	for i, rows:= range mapItems{
+		if len(rows) >= lim {
+			mapItems[i] = rows[:lim]
 		}
 	}
+
 	return mapItems, err
 }
+
+
+
+////////////// Version 2 ////////
+
+//
+//
+//
+//hell, err := database.SQL.Query("Select user_id, count(*) as count,  DATE(datetime) as date, " +
+//	"@num := if(@type = user_id, @num + 1, 1) as row_number, " +
+//	"@type := user_id as dummy  from stat " +
+//	"WHERE action = ? AND  DATE(datetime) >= ?  and DATE(datetime) <= ? " +
+//	"GROUP BY DATE(datetime), user_id " +
+//	"having row_number <= ? " +
+//	"ORDER BY DATE(datetime), count(*) desc", action, fromDate , toDate, limit)
+//
+//if err != nil {
+//	log.Fatal(err)
+//}
+//defer hell.Close()
+//
+//
+//for hell.Next() {
+//	var user_id uint32
+//	var count uint32
+//	var date time.Time
+//	var row_num uint32
+//	var dummy uint32
+//
+//
+//	if err := hell.Scan(&user_id, &count, &date, &row_num, &dummy); err != nil {
+//		log.Fatal(err)
+//	}
+//
+//	fmt.Println(user_id)
+//	fmt.Println(count)
+//	fmt.Println(date)
+//	fmt.Println("\n\n\n\\n\n")
+//
+//	mapItems[date.Format("2006.01.02")] = append(mapItems[date.Format("2006.01.02")], Row{user_id, 0, "", count})
+//	setIds[user_id] = user_id
+//}
+//if err := hell.Err(); err != nil {
+//	log.Fatal(err)
+//}
+//
+//
+//
+////for i := 0; i < len(dates); i++ {
+////	rows, err := database.SQL.Query("Select user_id, count(*) as count from stat " +
+////		"WHERE action = ? AND DATE(datetime) = ? " +
+////		"GROUP BY user_id " +
+////		"ORDER BY count(*) desc " +
+////		"LIMIT ?", action, dates[i], limit)
+////
+////	if err != nil {
+////		log.Fatal(err)
+////	}
+////	defer rows.Close()
+////
+////	flag:=true
+////	for rows.Next() {
+////		if(flag) {
+////			udates = append(udates, dates[i])
+////			flag = false
+////		}
+////
+////		var user_id uint32
+////		var count uint32
+////
+////		if err := rows.Scan(&user_id, &count); err != nil {
+////			log.Fatal(err)
+////		}
+////
+////		mapItems[dates[i]] = append(mapItems[dates[i]], Row{user_id, 0, "", count})
+////		setIds[user_id] = user_id
+////	}
+////	if err := rows.Err(); err != nil {
+////		log.Fatal(err)
+////	}
+////}
+//
+//if(len(setIds) == 0){
+//	return mapItems, err
+//}
+//
+//fmt.Println(setIds)
+//
+//for k := range setIds {
+//		sliceIds = append(sliceIds, k)
+//}
+//
+//fmt.Println("\n\n\n")
+//fmt.Println(sliceIds)
+//
+//args := []interface{}{}
+//for _, id := range sliceIds{
+//	args = append(args, id)
+//}
+//
+//users, err := database.SQL.Query("SELECT id, age, sex FROM USER " +
+//	"WHERE id in (?" + strings.Repeat(",?", len(sliceIds)-1) + ") ", args...)
+//
+//if err != nil {
+//	log.Fatal(err)
+//}
+//
+//defer users.Close()
+//
+//mapUsers := make(map[uint32]Row)
+//
+//for users.Next() {
+//	var id uint32
+//	var age uint16
+//	var sex string
+//
+//	if err := users.Scan(&id, &age, &sex); err != nil {
+//		log.Fatal(err)
+//	}
+//	mapUsers[id] = Row{id, age, sex, 0}
+//}
+//
+//fmt.Println(mapUsers)
+//fmt.Println(len(mapItems))
+//
+//
+//for _, rows:= range mapItems{
+//	for i := range rows{
+//		rows[i].Age = mapUsers[rows[i].ID].Age
+//		rows[i].Sex = mapUsers[rows[i].ID].Sex
+//	}
+//}
+//
+//
+//
+////for i := 0; i < len(udates); i++{
+////	rows:= mapItems[udates[i]]
+////	for j:=0; j <len(rows);j++{
+////		rows[j].Age = mapUsers[rows[j].ID].Age
+////		rows[j].Sex = mapUsers[rows[j].ID].Sex
+////	}
+////}
+//
+
+
+
+////////////// Version 1 ////////
+
 
 //if err := users.Err(); err != nil {
 
