@@ -41,10 +41,6 @@ func TestGetTopStatusOkActionLike(t *testing.T) {
 }
 
 func TestGetTopErrorDate2LessDate1(t *testing.T) {
-	jsonconfig.Load("/Users/serqeycheremisin/work/src/github.com/metrics/config/"+"config.json", config)
-	database.Connect(config.TestDatabase)
-
-	//r := bytes.NewReader(jsonStr)
 
 	req, err := http.NewRequest("GET", "/api/users?date1=2017-08-01&date2=2017-07-10&action=like&limit=2", nil)
 
@@ -74,10 +70,6 @@ func TestGetTopErrorDate2LessDate1(t *testing.T) {
 
 
 func TestGetTopErrorLimitEmpty(t *testing.T) {
-	jsonconfig.Load("/Users/serqeycheremisin/work/src/github.com/metrics/config/"+"config.json", config)
-	database.Connect(config.TestDatabase)
-
-	//r := bytes.NewReader(jsonStr)
 
 	req, err := http.NewRequest("GET", "/api/users?date1=2017-08-01&date2=2017-08-10&action=like&limit=", nil)
 
@@ -107,11 +99,6 @@ func TestGetTopErrorLimitEmpty(t *testing.T) {
 
 
 func TestGetTopErrorLimitZero(t *testing.T) {
-	jsonconfig.Load("/Users/serqeycheremisin/work/src/github.com/metrics/config/"+"config.json", config)
-	database.Connect(config.TestDatabase)
-
-	//r := bytes.NewReader(jsonStr)
-
 	req, err := http.NewRequest("GET", "/api/users?date1=2017-08-01&date2=2017-08-10&action=like&limit=0", nil)
 
 	req.Header.Set("Content-Type", "application/json")
@@ -139,11 +126,6 @@ func TestGetTopErrorLimitZero(t *testing.T) {
 }
 
 func TestGetTopErrorInvalidDate(t *testing.T) {
-	jsonconfig.Load("/Users/serqeycheremisin/work/src/github.com/metrics/config/"+"config.json", config)
-	database.Connect(config.TestDatabase)
-
-	//r := bytes.NewReader(jsonStr)
-
 	req, err := http.NewRequest("GET", "/api/users?date1=2017-0ds8-01&date2=2017-08-10&action=like&limit=4", nil)
 
 	req.Header.Set("Content-Type", "application/json")
@@ -171,10 +153,6 @@ func TestGetTopErrorInvalidDate(t *testing.T) {
 }
 
 func TestGetTopErrorInvalidAction(t *testing.T) {
-	jsonconfig.Load("/Users/serqeycheremisin/work/src/github.com/metrics/config/"+"config.json", config)
-	database.Connect(config.TestDatabase)
-
-	//r := bytes.NewReader(jsonStr)
 
 	req, err := http.NewRequest("GET", "/api/users?date1=2017-08-01&date2=2017-08-10&actsdion=like&limit=4", nil)
 
@@ -203,10 +181,6 @@ func TestGetTopErrorInvalidAction(t *testing.T) {
 }
 
 func TestGetTopErrorInvalidJson(t *testing.T) {
-	jsonconfig.Load("/Users/serqeycheremisin/work/src/github.com/metrics/config/"+"config.json", config)
-	database.Connect(config.TestDatabase)
-
-	//r := bytes.NewReader(jsonStr)
 
 	req, err := http.NewRequest("GET", "/api/users?date1=2017-08-01&actsdion=like&limit=4", nil)
 
@@ -235,10 +209,6 @@ func TestGetTopErrorInvalidJson(t *testing.T) {
 }
 
 func TestGetTopStatusOkActionLogin(t *testing.T) {
-	jsonconfig.Load("/Users/serqeycheremisin/work/src/github.com/metrics/config/"+"config.json", config)
-	database.Connect(config.TestDatabase)
-
-	//r := bytes.NewReader(jsonStr)
 
 	req, err := http.NewRequest("GET", "/api/users?date1=2017-08-01&date2=2017-08-10&action=login&limit=2", nil)
 
@@ -268,10 +238,6 @@ func TestGetTopStatusOkActionLogin(t *testing.T) {
 
 
 func TestGetTopStatusOkActionComment(t *testing.T) {
-	jsonconfig.Load("/Users/serqeycheremisin/work/src/github.com/metrics/config/"+"config.json", config)
-	database.Connect(config.TestDatabase)
-
-	//r := bytes.NewReader(jsonStr)
 
 	req, err := http.NewRequest("GET", "/api/users?date1=2017-08-01&date2=2017-08-10&action=comment&limit=2", nil)
 
@@ -300,10 +266,6 @@ func TestGetTopStatusOkActionComment(t *testing.T) {
 }
 
 func TestGetTopErrorDateFormat(t *testing.T) {
-	jsonconfig.Load("/Users/serqeycheremisin/work/src/github.com/metrics/config/"+"config.json", config)
-	database.Connect(config.TestDatabase)
-
-	//r := bytes.NewReader(jsonStr)
 
 	req, err := http.NewRequest("GET", "/api/users?date1=2017-08-01T15:17:21+03:00&date2=2017-08-10&action=comment&limit=2", nil)
 
